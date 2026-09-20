@@ -13,10 +13,12 @@ public class Main {
         // Demostración de toString() reusando super.toString()
         System.out.println("=== DATOS DEL CLIENTE ===");
         System.out.println(cliente1.toString());
+        System.out.println(cliente2.toString());
         System.out.println(cliente3.toString());
 
         System.out.println("\n=== DATOS DEL REPARTIDOR ===");
         System.out.println(repartidor1.toString());
+        System.out.println(repartidor2.toString());
         System.out.println(repartidor3.toString());
 
         // Invocación de métodos propios
