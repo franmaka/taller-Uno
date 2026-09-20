@@ -4,6 +4,7 @@
 - Integrante 1 (Francisco Fuentealba Flores)
 - Integrante 2 (Victor Serrano Recabarren)
 - Integrante 3 (Jorge Bozo Araya)
+- Integrante 4 (Josue Gedeon)
 
 ## Descripción
 Proyecto en Java enfocado en la aplicación del concepto de **Herencia** en Programación Orientada a Objetos para el sistema de una mueblería.
