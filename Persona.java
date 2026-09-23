@@ -1,4 +1,4 @@
-public class Persona {
+public abstract class Persona {
     private String nombre;
     private String rut;
 
@@ -14,6 +14,9 @@ public class Persona {
     public String getRut() {
         return rut;
     }
+
+    // Método abstracto que será implementado por las clases hijas
+    public abstract void mostrarRol();
 
     @Override
     public String toString() {

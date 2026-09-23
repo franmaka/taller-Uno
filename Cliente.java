@@ -6,8 +6,9 @@ public class Cliente extends Persona {
         this.direccionEntrega = direccionEntrega;
     }
 
-    public void realizarPedido(String producto) {
-        System.out.println("El cliente " + getNombre() + " ha solicitado el producto: " + producto);
+    @Override
+    public void mostrarRol() {
+        System.out.println("[ROL: CLIENTE] Comprador en la tienda. Dirección: " + direccionEntrega);
     }
 
     @Override

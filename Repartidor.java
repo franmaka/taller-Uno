@@ -5,9 +5,10 @@ public class Repartidor extends Persona {
         super(nombre, rut);
         this.vehiculo = vehiculo;
     }
-
-    public void entregarMueble(String producto, String cliente) {
-        System.out.println("El repartidor " + getNombre() + " va en camino a entregar '" + producto + "' a " + cliente + " en su " + vehiculo + ".");
+    // Implementación obligatoria con @Override y lógica propia
+    @Override
+    public void mostrarRol() {
+        System.out.println("[ROL: REPARTIDOR] Encargado de despachos. Vehículo: " + vehiculo);
     }
 
     @Override
