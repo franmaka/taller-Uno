@@ -23,5 +23,29 @@ public class Main {
             personas[i].mostrarRol();
             System.out.println("-------------------------------------------------");
         }    
+    
+        // == PROBANDO LA CLASE MUEBLERÍA E INTERFACES ==
+        System.out.println("\n=== DEMOSTRACIÓN DE MUEBLERÍA E INTERFACES ===");
+        
+        // Creamos un objeto Muebleria sin los nombres de los parámetros
+        Muebleria miMueble = new Muebleria("Sofá 3 Cuerpos", "Madera y Tela", 189990.0);
+        
+        // Mostramos la info general
+        miMueble.mostrarInfo();
+        
+        // Probamos los métodos de las interfaces
+        System.out.println("Precio final (con IVA): $" + miMueble.calcularPrecioFinal());
+        
+        // Probamos aplicar un descuento (sin escribir "porcentaje:")
+        boolean descuentoAplicado = miMueble.aplicarDescuento(10.0); 
+        if (descuentoAplicado) {
+            System.out.println("¡Descuento aplicado con éxito! Nuevo precio base: $" + miMueble.getPrecio());
+            System.out.println("Nuevo precio final con IVA: $" + miMueble.calcularPrecioFinal());
+        }
+        
+        // Probamos el despacho
+        System.out.println("Costo de envío: $" + miMueble.calcularCostoEnvio("Coronel"));
+        miMueble.programarDespacho("2026-05-15");
     }
+
 }

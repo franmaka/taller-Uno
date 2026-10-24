@@ -1,3 +1,10 @@
+/**
+ * Clase abstracta Persona: Se define como abstracta porque representa un concepto
+ * general y genérico que no debe ser instanciado por sí mismo en el sistema.
+ * Sirve únicamente como clase base para agrupar atributos y comportamientos 
+ * comunes compartidos por entidades concretas como Cliente y Repartidor.
+ */
+
 public abstract class Persona {
     private String nombre;
     private String rut;
