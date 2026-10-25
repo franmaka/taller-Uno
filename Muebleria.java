@@ -5,7 +5,7 @@ public class Muebleria implements Vendible, Despachable {
 
     // Atributos inmutables de la clase Muebleria (declaramos como final)
     private String tipo;      // Ej: "Sofá", "Mesa"
-    private String material;  // Ej: "Madera de pino", "Melamina"
+    private String material;  // Ej: "Madera de pino", "Melamina", "Lenga"
     private double precio;    // Ej: 149990.0
 
     // Constructor
