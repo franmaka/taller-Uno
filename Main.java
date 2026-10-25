@@ -29,7 +29,10 @@ public class Main {
         
         // Creamos un objeto Muebleria sin los nombres de los parámetros
         Muebleria miMueble = new Muebleria("Sofá 3 Cuerpos", "Madera y Tela", 189990.0);
-        
+
+        // Creamos el segundo mueble con los nombres de los parámetros 
+        Muebleria miMesa = new Muebleria("Mesa de Comedor", "lenga", 600000.0);
+
         // Mostramos la info general
         miMueble.mostrarInfo();
         
@@ -46,6 +49,15 @@ public class Main {
         // Probamos el despacho
         System.out.println("Costo de envío: $" + miMueble.calcularCostoEnvio("Coronel"));
         miMueble.programarDespacho("2026-05-15");
+
+        System.out.println("\n-------------------------------------------------");
+        Muebleria miMueble2 = new Muebleria("Mesa de Comedor 6 Sillas", "Madera Roble", 299990.0);
+        miMueble2.mostrarInfo();
+        System.out.println("Precio final (con IVA): $" + miMueble2.calcularPrecioFinal());
+        System.out.println("Costo de envío: $" + miMueble2.calcularCostoEnvio("Concepción"));
+        miMueble2.programarDespacho("2026-05-18");
+
+
     }
 
 }

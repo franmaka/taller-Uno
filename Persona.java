@@ -21,7 +21,7 @@ public abstract class Persona {
     public String getRut() {
         return rut;
     }
-
+ 
     // Método abstracto que será implementado por las clases hijas
     public abstract void mostrarRol();
 
