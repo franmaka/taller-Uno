@@ -4,8 +4,8 @@ public class Muebleria implements Vendible, Despachable {
     public static final double IVA = 0.19; // Impuesto al Valor Agregado (19%)
 
     // Atributos inmutables de la clase Muebleria (declaramos como final)
-    private String tipo;      // Ej: "Sofá", "Mesa"
-    private String material;  // Ej: "Madera de pino", "Melamina", "Lenga"
+    private String tipo;      // Ej: "Sofá", "Mesa", "Silla", "Velador",   
+    private String material;  // Ej: "Madera de pino", "Melamina", "Madera Roble", "Lenga"
     private double precio;    // Ej: 149990.0
 
     // Constructor
