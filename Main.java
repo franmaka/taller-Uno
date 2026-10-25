@@ -31,7 +31,7 @@ public class Main {
         Muebleria miMueble = new Muebleria("Sofá 3 Cuerpos", "Madera y Tela", 189990.0);
 
         // Creamos el segundo mueble con los nombres de los parámetros 
-        Muebleria miMesa = new Muebleria("Mesa de Comedor", "lenga", 600000.0);
+        Muebleria miMesa = new Muebleria("Mesa de Comedor 6 sillas", "Madera Roble", 600000.0);
 
         // Mostramos la info general
         miMueble.mostrarInfo();
