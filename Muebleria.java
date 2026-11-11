@@ -1,7 +1,11 @@
 public class Muebleria implements Vendible, Despachable {
 
     // Constante para el IVA
-    public static final double IVA = 0.19; // Impuesto al Valor Agregado (19%)
+    private static final double IVA = 0.19;
+
+    public static double getIva() {
+        return IVA;
+    } 
 
     // Atributos inmutables de la clase Muebleria (declaramos como final)
     private String tipo;      // Ej: "Sofá", "Mesa", "Silla", "Velador",   
@@ -35,6 +39,7 @@ public class Muebleria implements Vendible, Despachable {
         return material;
     }
 
+    
     // Método para mostrar la información del mueble
     public void mostrarInfo() {
         System.out.println("=== Detalle del Mueble ===");

@@ -31,8 +31,8 @@ public class Pedido {
     }
 
     public double calcularTotal() {
-        return detalle.calcularSubtotal() * (1 + Muebleria.IVA);
-    }
+        return detalle.calcularSubtotal() * (1 + Muebleria.getIva());
+   }
 
     /**
      * Dependencia: Despachable se recibe como parámetro y no se almacena
