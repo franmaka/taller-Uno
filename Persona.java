@@ -1,28 +1,55 @@
 /**
- * Clase abstracta Persona: Se define como abstracta porque representa un concepto
- * general y genérico que no debe ser instanciado por sí mismo en el sistema.
- * Sirve únicamente como clase base para agrupar atributos y comportamientos 
- * comunes compartidos por entidades concretas como Cliente y Repartidor.
+ * Clase abstracta Persona.
+ * Representa un concepto general que sirve como clase base
+ * para entidades concretas como Cliente y Repartidor.
  */
-
 public abstract class Persona {
-    private String nombre;
-    private String rut;
 
+    // Atributos privados (encapsulamiento)
+    private String nombre;
+    private final String rut;
+
+    // Constructor con validaciones
     public Persona(String nombre, String rut) {
-        this.nombre = nombre;
-        this.rut = rut;
+
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                "El nombre no puede estar vacío."
+            );
+        }
+
+        if (rut == null || rut.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                "El RUT no puede estar vacío."
+            );
+        }
+
+        this.nombre = nombre.trim();
+        this.rut = rut.trim();
     }
 
+    // Getter del nombre
     public String getNombre() {
         return nombre;
     }
 
+    // Getter del RUT (no tiene setter porque es final)
     public String getRut() {
         return rut;
     }
- 
-    // Método abstracto que será implementado por las clases hijas
+
+    // Setter del nombre con validación
+    public void setNombre(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                "El nombre no puede estar vacío."
+            );
+        }
+
+        this.nombre = nombre.trim();
+    }
+
+    // Método abstracto implementado por las clases hijas
     public abstract void mostrarRol();
 
     @Override
