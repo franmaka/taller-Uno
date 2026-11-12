@@ -36,21 +36,31 @@ public class Main {
         System.out.println("\n=== DEMOSTRACIÓN DE RELACIONES ENTRE CLASES ===");
 
         // Agregación: el Cliente se crea fuera del Pedido y se entrega al constructor.
-        Cliente clientePedido = new Cliente(
+        Cliente cliente1 = new Cliente(
                 "Francisco Fuentealba", "15.111.222-3", "Av. Colón 123");
+        Cliente cliente2 = new Cliente(
+                "María Rojas Soto", "18.444.555-6", "Calle Arturo Prat 456");
 
         // Asociación: el repartidor también existe fuera del Pedido y se asigna después.
         Repartidor repartidorPedido = new Repartidor(
                 "Gonzalo Pérez", "12.876.543-2", "Camión Ford F-150");
 
         // Composición: Pedido crea internamente su DetallePedido.
-        Pedido pedido = new Pedido(
-                1001, clientePedido, miMueble.getTipo(), 1, miMueble.getPrecio());
+        Pedido pedido1 = new Pedido(
+                1001, cliente1, miMueble.getTipo(), 1, miMueble.getPrecio());
 
-        pedido.asignarRepartidor(repartidorPedido);
+        Pedido pedido2 = new Pedido(
+                1002, cliente2, "Mesa de Comedor", 1, 249990.0);
+
+        pedido1.asignarRepartidor(repartidorPedido);
+        pedido2.asignarRepartidor(repartidorPedido);
 
         // Dependencia: ServicioDespacho se pasa al método y no queda guardado en Pedido.
         ServicioDespacho servicio = new ServicioDespacho();
-        pedido.confirmarDespacho(servicio, "Punta Arenas", "2026-11-10");
+
+        System.out.println("\n--- Procesando Pedido 1 ---");
+        pedido1.confirmarDespacho(servicio, "Punta Arenas", "2026-11-10");
+        System.out.println("\n--- Procesando Pedido 2 ---");
+        pedido2.confirmarDespacho(servicio, "Coronel", "2026-11-11");
     }
 }
