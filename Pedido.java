@@ -35,17 +35,20 @@ public class Pedido {
    }
 
     /**
-     * Dependencia: Despachable se recibe como parámetro y no se almacena
-     * como atributo del Pedido.
+     * Dependencias: Se reciben como parámetros temporales y no se almacenan como atributos.
      */
-    public void confirmarDespacho(Despachable servicio, String comuna, String fecha) {
-        if (servicio == null) {
+    public void confirmarDespacho(Despachable servicioDespacho, Notificable servicioNotificacion, String comuna, String fecha) {
+        if (servicioDespacho == null) {
             throw new IllegalArgumentException("Debe proporcionar un servicio de despacho.");
+        }
+        if (servicioNotificacion == null) {
+            throw new IllegalArgumentException("Debe proporcionar un servicio de notificación.");
         }
         if (repartidor == null) {
             throw new IllegalStateException("Primero debe asignar un repartidor.");
         }
-        double costoEnvio = servicio.calcularCostoEnvio(comuna);
+        
+        double costoEnvio = servicioDespacho.calcularCostoEnvio(comuna);
         System.out.println("\n=== CONFIRMACIÓN DEL PEDIDO N° " + numero + " ===");
         System.out.println("Cliente: " + cliente.getNombre());
         System.out.println("Detalle: " + detalle);
@@ -54,7 +57,10 @@ public class Pedido {
         System.out.println("Total con IVA: $" + calcularTotal());
         System.out.println("Costo de envío: $" + costoEnvio);
         System.out.println("Total a pagar: $" + (calcularTotal() + costoEnvio));
-        servicio.programarDespacho(fecha);
+        
+        // Ejecución de las dependencias
+        servicioDespacho.programarDespacho(fecha);
+        servicioNotificacion.enviarCorreo(cliente, "Su pedido N° " + numero + " ha sido procesado y programado con éxito.");
     }
 
     public int getNumero() { return numero; }

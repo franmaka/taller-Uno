@@ -55,12 +55,14 @@ public class Main {
         pedido1.asignarRepartidor(repartidorPedido);
         pedido2.asignarRepartidor(repartidorPedido);
 
-        // Dependencia: ServicioDespacho se pasa al método y no queda guardado en Pedido.
-        ServicioDespacho servicio = new ServicioDespacho();
+        // Dependencias externas: Se pasan a los métodos de negocio sin guardarse como atributos fijos.
+        ServicioDespacho servicioDespacho = new ServicioDespacho();
+        ServicioNotificacion servicioNotificacion = new ServicioNotificacion();
 
         System.out.println("\n--- Procesando Pedido 1 ---");
-        pedido1.confirmarDespacho(servicio, "Punta Arenas", "2026-11-10");
+        pedido1.confirmarDespacho(servicioDespacho, servicioNotificacion, "Punta Arenas", "2026-11-10");
+        
         System.out.println("\n--- Procesando Pedido 2 ---");
-        pedido2.confirmarDespacho(servicio, "Coronel", "2026-11-11");
+        pedido2.confirmarDespacho(servicioDespacho, servicioNotificacion, "Coronel", "2026-11-11");
     }
 }
