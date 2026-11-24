@@ -1,7 +1,12 @@
 /**
  * Clase abstracta Persona.
- * Representa un concepto general que sirve como clase base
- * para entidades concretas como Cliente y Repartidor.
+ *
+ * Representa los datos y comportamientos comunes de las personas
+ * que participan en el sistema de gestión de mueblería.
+ *
+ * No se instancia directamente porque en el sistema las personas
+ * cumplen roles específicos, como Cliente o Repartidor.
+ * Por este motivo, las clases hijas deben implementar mostrarRol().
  */
 public abstract class Persona {
 
@@ -49,7 +54,10 @@ public abstract class Persona {
         this.nombre = nombre.trim();
     }
 
-    // Método abstracto implementado por las clases hijas
+    /**
+     * Muestra el rol específico de cada tipo de persona.
+     * Las clases hijas deben implementar este comportamiento.
+     */
     public abstract void mostrarRol();
 
     @Override
