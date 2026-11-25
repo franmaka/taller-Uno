@@ -11,8 +11,9 @@
  * Implementa la interfaz Despachable, permitiendo incorporar
  * otros servicios de despacho sin modificar Pedido.
  *
- * RELACIÓN: DEPENDENCIA — Pedido utiliza este servicio
- * temporalmente mediante parámetros de tipo Despachable.
+ * RELACIÓN: DEPENDENCIA — Pedido usa ServicioDespacho
+ * temporalmente en confirmarDespacho(), recibido como parámetro
+ * de tipo Despachable; no se guarda como atributo de Pedido.
  */
 public class ServicioDespacho implements Despachable {
 

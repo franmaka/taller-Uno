@@ -11,8 +11,9 @@
  * La interfaz Notificable permite incorporar otros servicios
  * de notificación sin modificar la clase Pedido.
  *
- * RELACIÓN: DEPENDENCIA — Pedido utiliza este servicio
- * temporalmente mediante un parámetro de tipo Notificable.
+ * RELACIÓN: DEPENDENCIA — Pedido usa ServicioNotificacion
+ * temporalmente en confirmarDespacho(), recibido como parámetro
+ * de tipo Notificable; no se guarda como atributo de Pedido.
  */
 public class ServicioNotificacion implements Notificable {
 
