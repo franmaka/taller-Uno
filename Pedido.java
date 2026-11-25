@@ -10,6 +10,10 @@
  * PRINCIPIO SOLID: OCP (Abierto/Cerrado).
  * Permite incorporar nuevas políticas de impuestos,
  * servicios de despacho y notificación sin modificar Pedido.
+ *
+ * PRINCIPIO SOLID: SRP (Responsabilidad Única).
+ * Responsabilidad: calcular los montos del pedido y coordinar su
+ * despacho. La impresión del resumen se separó en ComprobantePedido.
  */
 public class Pedido {
 
@@ -137,24 +141,20 @@ public class Pedido {
         double totalConImpuesto = calcularTotal();
         double totalPagar = totalConImpuesto + costoEnvio;
 
-        System.out.println("\n=== CONFIRMACIÓN DEL PEDIDO N° "
-                + numero + " ===");
-
-        System.out.println("Cliente: " + cliente.getNombre());
-        System.out.println("Detalle: " + detalle);
-        System.out.println("Repartidor: " + repartidor.getNombre());
-
-        System.out.printf("Subtotal: $%.2f%n",
-                detalle.calcularSubtotal());
-
-        System.out.printf("Total con impuesto: $%.2f%n",
-                totalConImpuesto);
-
-        System.out.printf("Costo de envío: $%.2f%n",
-                costoEnvio);
-
-        System.out.printf("Total a pagar: $%.2f%n",
+        // SRP (refactorización S2): Pedido calcula y coordina;
+        // la presentación se delega en ComprobantePedido.
+        // RELACIÓN: DEPENDENCIA — Pedido crea un ComprobantePedido
+        // como variable local, sin almacenarlo como atributo.
+        ComprobantePedido comprobante = new ComprobantePedido(
+                numero,
+                cliente.getNombre(),
+                repartidor.getNombre(),
+                detalle,
+                totalConImpuesto,
+                costoEnvio,
                 totalPagar);
+
+        comprobante.imprimir();
 
         servicioDespacho.programarDespacho(fecha);
 
