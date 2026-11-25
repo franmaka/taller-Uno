@@ -22,9 +22,11 @@ public class Cliente extends Persona {
 
     /**
      * Modifica la dirección de entrega.
+     * Es final porque el constructor la invoca (evita que una
+     * subclase la sobrescriba y omita la validación).
      * @param direccionEntrega nueva dirección del cliente.
      */
-    public void setDireccionEntrega(String direccionEntrega) {
+    public final void setDireccionEntrega(String direccionEntrega) {
         if (direccionEntrega == null || direccionEntrega.trim().isEmpty()) {
             throw new IllegalArgumentException(
                 "La dirección de entrega no puede estar vacía."

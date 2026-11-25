@@ -18,9 +18,11 @@ public class Repartidor extends Persona {
 
     /**
      * Modifica el vehículo del repartidor.
+     * Es final porque el constructor la invoca (evita que una
+     * subclase la sobrescriba y omita la validación).
      * @param vehiculo nuevo vehículo asignado.
      */
-    public void setVehiculo(String vehiculo) {
+    public final void setVehiculo(String vehiculo) {
         if (vehiculo == null || vehiculo.trim().isEmpty()) {
             throw new IllegalArgumentException(
                 "El vehículo no puede estar vacío."
