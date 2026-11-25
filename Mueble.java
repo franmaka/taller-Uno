@@ -13,12 +13,20 @@
  * PRINCIPIO SOLID: OCP (Abierto/Cerrado).
  * Permite incorporar nuevas políticas de impuestos
  * sin modificar el código de esta clase.
+ *
+ * PRINCIPIO SOLID: SRP (Responsabilidad Única) — refactorización S2.
+ * Su responsabilidad es representar el producto (tipo, material,
+ * precio y descuentos). Hasta C4, Mueble también fijaba su propia
+ * tarifa de envío (constante COSTO_ENVIO = 5000), duplicando la regla
+ * que ya tenía ServicioDespacho: un cambio de tarifa obligaba a
+ * modificar dos clases. Ahora Mueble sigue cumpliendo el contrato
+ * Despachable, pero delega el cálculo y la programación del envío
+ * en el servicio de despacho que recibe por constructor.
  */
 public class Mueble implements Vendible, Despachable {
 
     // Constantes del sistema
     private static final double DESCUENTO_MAXIMO = 50.0;
-    private static final double COSTO_ENVIO = 5000.0;
 
     // Atributos privados
     private final String tipo;
@@ -28,12 +36,25 @@ public class Mueble implements Vendible, Despachable {
     // DIP: dependencia de una abstracción.
     private final ImpuestoAplicable impuestoAplicable;
 
+    // RELACIÓN: ASOCIACIÓN — Mueble mantiene un servicio Despachable
+    // creado externamente; el servicio existe y puede compartirse
+    // entre muchos muebles y pedidos, sin relación parte–todo.
+    // DIP: se declara mediante la interfaz, no mediante ServicioDespacho.
+    private final Despachable servicioDespacho;
+
     /**
      * Constructor del mueble con validaciones
-     * e inyección de dependencia.
+     * e inyección de dependencias.
+     *
+     * @param tipo              tipo de mueble.
+     * @param material          material principal.
+     * @param precio            precio base sin impuesto.
+     * @param impuestoAplicable política de impuesto (DIP).
+     * @param servicioDespacho  servicio que calcula y programa envíos (DIP).
      */
     public Mueble(String tipo, String material, double precio,
-                  ImpuestoAplicable impuestoAplicable) {
+                  ImpuestoAplicable impuestoAplicable,
+                  Despachable servicioDespacho) {
 
         if (tipo == null || tipo.trim().isEmpty()) {
             throw new IllegalArgumentException(
@@ -53,11 +74,18 @@ public class Mueble implements Vendible, Despachable {
             );
         }
 
+        if (servicioDespacho == null) {
+            throw new IllegalArgumentException(
+                "Debe proporcionar un servicio de despacho."
+            );
+        }
+
         this.tipo = tipo.trim();
         this.material = material.trim();
 
         // DIP: inyección de dependencia por constructor.
         this.impuestoAplicable = impuestoAplicable;
+        this.servicioDespacho = servicioDespacho;
 
         setPrecio(precio);
     }
@@ -82,9 +110,12 @@ public class Mueble implements Vendible, Despachable {
     /**
      * Modifica el precio del mueble.
      *
+     * Se declara final porque el constructor la invoca: así una
+     * subclase no puede sobrescribirla y saltarse la validación.
+     *
      * @param precio nuevo precio del mueble.
      */
-    public void setPrecio(double precio) {
+    public final void setPrecio(double precio) {
 
         if (precio < 0 || Double.isNaN(precio)
                 || Double.isInfinite(precio)) {
@@ -149,41 +180,29 @@ public class Mueble implements Vendible, Despachable {
     // IMPLEMENTACIÓN DE LA INTERFAZ DESPACHABLE
 
     /**
-     * Calcula el costo del envío.
+     * Calcula el costo del envío del mueble.
+     *
+     * SRP: la tarifa no se define aquí; se delega en el
+     * servicio de despacho inyectado.
      *
      * @param comuna comuna de destino.
      * @return costo del envío.
      */
     @Override
     public double calcularCostoEnvio(String comuna) {
-
-        if (comuna == null || comuna.trim().isEmpty()) {
-            throw new IllegalArgumentException(
-                "Debe indicar la comuna de destino."
-            );
-        }
-
-        return COSTO_ENVIO;
+        return servicioDespacho.calcularCostoEnvio(comuna);
     }
 
     /**
      * Programa el despacho del mueble.
      *
+     * SRP: la programación se delega en el servicio de despacho.
+     *
      * @param fecha fecha programada para el despacho.
      */
     @Override
     public void programarDespacho(String fecha) {
-
-        if (fecha == null || fecha.trim().isEmpty()) {
-            throw new IllegalArgumentException(
-                "Debe indicar una fecha de despacho."
-            );
-        }
-
-        System.out.println(
-            "Despacho del mueble (" + tipo
-            + ") programado exitosamente para la fecha: "
-            + fecha
-        );
+        System.out.print("Mueble (" + tipo + "): ");
+        servicioDespacho.programarDespacho(fecha);
     }
 }

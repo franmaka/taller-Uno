@@ -78,14 +78,19 @@ public class Main {
         System.out.println(
                 "\n=== DEMOSTRACIÓN DE MUEBLE E INTERFACES ===");
 
-        // DIP: referencia declarada mediante una interfaz.
+        // DIP: referencias declaradas mediante interfaces.
         ImpuestoAplicable impuesto = new IvaChile();
+
+        // SRP (refactorización S2): la tarifa de envío vive solo en
+        // ServicioDespacho; Mueble la usa por delegación.
+        Despachable servicioDespacho = new ServicioDespacho();
 
         Mueble miMueble = new Mueble(
                 "Sofá 3 Cuerpos",
                 "Madera y Tela",
                 189990.0,
-                impuesto);
+                impuesto,
+                servicioDespacho);
 
         miMueble.mostrarInfo();
 
@@ -130,8 +135,8 @@ public class Main {
         System.out.println(
                 "\n=== DEMOSTRACIÓN DE RELACIONES ENTRE CLASES ===");
 
-        // AGREGACIÓN: los clientes se crean externamente
-        // y pueden existir independientemente de los pedidos.
+        // RELACIÓN: AGREGACIÓN — Pedido recibe Cliente: los clientes se
+        // crean aquí, fuera de Pedido, y existen independientemente de él.
 
         Cliente clientePedido1 = new Cliente(
                 "Francisco Fuentealba",
@@ -143,8 +148,8 @@ public class Main {
                 "22.222.222-2",
                 "Dirección de prueba 2");
 
-        // ASOCIACIÓN: repartidor independiente que puede
-        // ser asignado a distintos pedidos.
+        // RELACIÓN: ASOCIACIÓN — Pedido referencia a Repartidor: el mismo
+        // repartidor independiente se asigna a distintos pedidos.
 
         Repartidor repartidorPedido = new Repartidor(
                 "Gonzalo Pérez",
@@ -153,14 +158,13 @@ public class Main {
 
         // SRP: cada servicio tiene una responsabilidad específica.
         // DIP: referencias declaradas mediante interfaces.
-
-        Despachable servicioDespacho = new ServicioDespacho();
+        // (servicioDespacho se creó arriba y se reutiliza aquí.)
 
         Notificable servicioNotificacion =
                 new ServicioNotificacion();
 
-        // COMPOSICIÓN: cada Pedido crea internamente
-        // su propio objeto DetallePedido.
+        // RELACIÓN: COMPOSICIÓN — Pedido crea DetallePedido: Main solo
+        // entrega los datos; el detalle se construye dentro de Pedido.
 
         Pedido pedido1 = new Pedido(
                 1001,
@@ -186,8 +190,8 @@ public class Main {
 
         System.out.println("\n--- Procesando Pedido 1 ---");
 
-        // DEPENDENCIA: los servicios se utilizan temporalmente
-        // mediante parámetros, sin almacenarlos en Pedido.
+        // RELACIÓN: DEPENDENCIA — Pedido usa Despachable y Notificable
+        // solo como parámetros de confirmarDespacho(), sin almacenarlos.
 
         pedido1.confirmarDespacho(
                 servicioDespacho,
@@ -228,13 +232,15 @@ public class Main {
                 "Mesa de prueba",
                 "Madera",
                 100000.0,
-                impuestoNormal);
+                impuestoNormal,
+                servicioDespacho);
 
         Mueble muebleSinIva = new Mueble(
                 "Mesa de prueba",
                 "Madera",
                 100000.0,
-                impuestoCero);
+                impuestoCero,
+                servicioDespacho);
 
         System.out.printf(
                 "Precio base: $%.2f%n",
